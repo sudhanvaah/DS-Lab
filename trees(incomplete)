@@ -1,0 +1,123 @@
+//Binary search trees
+#include<iostream>
+#include<cstdlib>
+using namespace std;
+struct node
+{
+    int data;
+    node* right,*left;
+};
+typedef node * NODE;
+NODE getnode()
+{
+    NODE x=(NODE)malloc(sizeof(node));
+    return x;
+}
+NODE maketree(int t)
+{
+    NODE tree=getnode();
+    tree->data=t;
+    tree->left=tree->right=NULL;
+    return tree;
+}
+void setleft(NODE tree,int t)
+{
+    NODE Left;
+    if(tree->left!=NULL)
+        {
+            cout<<"\nLeft child already exists";
+            return;
+        }
+    Left=maketree(t);
+    tree->left=Left;
+}
+void setright(NODE tree,int t)
+{
+    NODE Right;
+    if(tree->right!=NULL)
+        {
+            cout<<"\nRight child already exists";
+            return;
+        }
+    cout<<"A";
+    Right=maketree(t);
+    tree->right=Right;
+}
+void pretrav(NODE head)
+{
+    cout<<head->data<<" ";
+    pretrav(head->left);
+    pretrav(head->right);
+}
+void posttrav(NODE head)
+{
+    posttrav(head->left);
+    posttrav(head->right);
+    cout<<head->data<<" ";
+}
+void intrav(NODE head)
+{
+    intrav(head->left);
+    cout<<head->data<<" ";
+    intrav(head->right);
+}
+main()
+{
+ NODE tree=NULL,p,q;
+ int n=1,t;
+ cout<<"\nEnter first element ";
+ cin>>t;
+ int i=1;
+ tree=maketree(t);
+ cout<<"\nEnter ele";
+ cin>>i;
+ cout<<"B";
+// while(i)
+ {
+                cout<<"A";
+  //              if(i==0)
+    //                break;
+                p=q=tree;
+                while(q!=NULL)
+                {
+                    p=q;
+                    if(i>=q->data)
+                        q=q->right;
+                    if(i<q->data)
+                        q=q->left;
+
+                }
+                if(i<p->data)
+                    setleft(p,i);
+                else
+                    setright(p,i);
+                cin>>i;
+ }
+ /*while(n)
+ {
+    cout<<"\n1 to insert\n2 for preorder display\n3 for postorder display \n4 for inorder display\n0 to exit ";
+    cin>>n;
+    switch(n)
+    {
+        case 1: cout<<"\nEnter element ";
+                cin>>t;
+                p=q=tree;
+                while(q!=NULL)
+                {
+                    p=q;
+                    if(q->data<=t)
+                        q=q->right;
+                    if(t<q->data)
+                        q=q->left;
+                }
+                if(t<p->data)
+                    setleft(p,t);
+                else
+                    setright(p,t);
+        case 2: pretrav(tree);
+    }
+
+ }*/
+ pretrav(tree);
+return 0;
+}
