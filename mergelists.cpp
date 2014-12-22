@@ -12,22 +12,32 @@ NODE getnode()
 NODE x=(NODE)malloc(sizeof(node));
 return x;
 }
-NODE insert_rear(int t,NODE root)
+NODE ins_ord(int t,NODE root)
 {
-NODE temp=getnode(),r=root;
-temp->data=t;
-temp->link=NULL;
-if(root==NULL)
-return temp;
-while(r->link!=NULL)
-r=r->link;
-r->link=temp;
-return root;
+    NODE temp=getnode(),curr=root;
+    temp->data=t;
+    temp->link=NULL;
+    if(root==NULL)
+        return temp;
+    if(t<root->data)
+    {
+        temp->link=root;
+        return temp;
+    }
+    while(curr->link!=NULL && t>curr->link->data)
+        curr=curr->link;
+    temp->link=curr->link;
+    curr->link=temp;
+    return root;
 }
 NODE merge_(NODE root1,NODE root2)
 {
     NODE temp=root1,root=root1,r=root1;
     int t;
+    if(root1==NULL)
+        return root2;
+    if(root2==NULL)
+        return root1;
     while(temp->link!=NULL)
         temp=temp->link;
     temp->link=root2;
@@ -86,7 +96,7 @@ if(i==1)
 {
 cout<<"\nEnter element ";
 cin>>n;
-root1=insert_rear(n,root1);
+root1=ins_ord(n,root1);
 }
 }
 i=1;
@@ -99,7 +109,7 @@ if(i==1)
 {
 cout<<"\nEnter element ";
 cin>>n;
-root2=insert_rear(n,root2);
+root2=ins_ord(n,root2);
 }
 }
 disp(root1);
